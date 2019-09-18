@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "../mybatis-3-mapper.dtd" >
+<mapper namespace="com.fxs.dao.UserDao">
+
+    <sql id="showData">
+        id,phone,password,salt,pic_img,ahama,name,sex,city,sign,status,reg_date,guruid
+    </sql>
+
+    <select id="selectBypage" resultType="User">
+        select <include refid="showData"/> from t_user limit #{start},#{rows}
+    </select>
+
+    <update id="updatUser">
+        update t_user
+        <set>
+            <if test="phone!=null">phone=#{phone}</if>
+            <if test="password!=null">password=#{password}</if>
+            <if test="salt!=null">salt=#{salt}</if>
+            <if test="pic_img!=null">pic_img=#{pic_img}</if>
+            <if test="ahama!=null">ahama=#{ahama}</if>
+            <if test="name!=null">name=#{name}</if>
+            <if test="sex!=null">sex=#{sex}</if>
+            <if test="city!=null">city=#{city}</if>
+            <if test="sign!=null">sign=#{sign}</if>
+            <if test="status!=null">status=#{status}</if>
+            <if test="reg_date!=null">reg_date=#{reg_date}</if>
+            <if test="guruid!=null">guruid=#{guruid}</if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <select id="selectCount" resultType="java.lang.Integer">
+        select count(*) from t_user
+    </select>
+</mapper>

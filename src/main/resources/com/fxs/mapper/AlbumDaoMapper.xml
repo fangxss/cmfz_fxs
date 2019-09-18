@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "../mybatis-3-mapper.dtd" >
+<mapper namespace="com.fxs.dao.AlbumDao">
+
+    <sql id="showData">
+        id,title,author,score,cover_img,broadcast,count,content,pub_date
+    </sql>
+    <select id="selectBypage" resultType="Album">
+        select <include refid="showData"/> from t_album limit #{start},#{rows}
+    </select>
+
+    <insert id="insertAlbum">
+        insert into t_album values(#{id},#{title},#{author},#{score},#{cover_img},#{broadcast},#{count},#{content},#{pub_date})
+    </insert>
+
+    <update id="updateAlbum" >
+        update t_album
+        <set>
+            <if test="title!=null">title=#{title},</if>
+            <if test="author!=null">author=#{author},</if>
+            <if test="score!=null">score=#{score},</if>
+            <if test="cover_img!=null">cover_img=#{cover_img},</if>
+            <if test="broadcast!=null">broadcast=#{broadcast},</if>
+            <if test="count!=null">count=#{count},</if>
+            <if test="content!=null">content=#{content},</if>
+            <if test="pub_date!=null">pub_date=#{pub_date},</if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <delete id="deleteAlbum">
+        delete from t_album where id=#{id}
+    </delete>
+
+    <select id="selectCount" resultType="java.lang.Integer">
+        select count(*) from t_album
+    </select>
+
+</mapper>

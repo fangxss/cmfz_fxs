@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "../mybatis-3-mapper.dtd" >
+<mapper namespace="com.fxs.dao.ChapterDao">
+
+    <sql id="showData">
+        id,url,size,duration,up_date,album_id
+    </sql>
+    <select id="selectBypage" resultType="Chapter">
+        select <include refid="showData"/> from t_chapter where album_id=#{id} limit #{start},#{rows}
+    </select>
+
+    <insert id="insertChapter">
+        insert into t_chapter values(#{id},#{url},#{size},#{duration},#{up_date},#{album_id})
+    </insert>
+
+    <update id="updateChapter" >
+        update t_chapter
+        <set>
+            <if test="url!=null">url=#{url},</if>
+            <if test="size!=null">size=#{size},</if>
+            <if test="duration!=null">duration=#{duration},</if>
+            <if test="up_date!=null">up_date=#{up_date},</if>
+            <if test="album_id!=null">album_id=#{album_id},</if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <delete id="deleteChapter">
+        delete from t_chapter where id=#{id}
+    </delete>
+
+    <select id="selectCount" resultType="java.lang.Integer">
+        select count(*) from t_chapter where album_id=#{id}
+    </select>
+</mapper>

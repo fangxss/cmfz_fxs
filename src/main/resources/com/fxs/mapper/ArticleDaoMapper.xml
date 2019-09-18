@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "../mybatis-3-mapper.dtd" >
+<mapper namespace="com.fxs.dao.ArticleDao">
+
+    <sql id="showData">
+        id,title,insert_img,content,up_date,guruid
+    </sql>
+    <select id="selectBypage" resultType="Article">
+        select <include refid="showData"/> from t_article limit #{start},#{rows}
+    </select>
+
+    <delete id="deleteArticle">
+        delete from t_article where id=#{id}
+    </delete>
+
+    <select id="selectCount" resultType="java.lang.Integer">
+        select count(*) from t_article
+    </select>
+
+    <insert id="addArticle">
+        insert into t_article values(#{id},#{title},#{insert_img},#{content},#{up_date},#{guruid})
+    </insert>
+</mapper>

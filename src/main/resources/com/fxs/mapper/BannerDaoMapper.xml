@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "../mybatis-3-mapper.dtd" >
+<mapper namespace="com.fxs.dao.BannerDao">
+
+    <sql id="showData">
+        id,title,img_path,description,status,up_date
+    </sql>
+    <select id="selectAll" resultType="Banner">
+        select <include refid="showData"/> from t_banner limit #{start},#{rows}
+    </select>
+
+    <insert id="insertBanner">
+        insert into t_banner values(#{id},#{title},#{img_path},#{status},#{up_date},#{description})
+    </insert>
+
+    <update id="updateBanner" >
+        update t_banner
+        <set>
+            <if test="title!=null">title=#{title},</if>
+            <if test="img_path!=null">img_path=#{img_path},</if>
+            <if test="description!=null">description=#{description},</if>
+            <if test="status!=null">status=#{status},</if>
+            <if test="up_date!=null">up_date=#{up_date},</if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <delete id="deleteBanner">
+        delete from t_banner where id=#{id}
+    </delete>
+
+    <select id="selectCount" resultType="java.lang.Integer">
+        select count(*) from t_banner
+    </select>
+</mapper>
